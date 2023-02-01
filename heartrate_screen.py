@@ -13,10 +13,28 @@ import random
 
 # creating Demo Class(base class)
 class Demo(MDApp):
- 
+
     def build(self):
         screen = Screen()
-         
+
+        start_time = time.time()
+        HR_list = []
+
+        while True:
+            current_time = time.time()
+            elapsed_time = current_time - start_time
+            if elapsed_time >= 50:
+                break
+        HR = random.randint(50, 120)
+        HR_list.append(HR)
+
+        with open("HR_database.txt", "a") as file:
+            file.write("Time: " + str(current_time) + "  HR: " + str(HR) + "\n")
+
+        color = (0, 1, 0, 1) if all(x <= 100 for x in HR_list[-5:]) else (1, 0, 0, 1)
+        btn2.background_color = color
+        time.sleep(5)
+
         # defining label with all the parameters
         l = MDLabel(text="Panic Attack Detection", halign='center',
                     theme_text_color="Custom",
@@ -28,7 +46,7 @@ class Demo(MDApp):
                                     'center_x': 0.5, 'center_y': 0.8},
                                     on_release=self.btnfunc1)
                                     
-        btn2 = MDRectangleFlatButton(text="Green/Red", pos_hint={
+        btn2 = MDRectangleFlatButton(text="Risk", pos_hint={
                                     'center_x': 0.5, 'center_y': 0.6},
                                     on_release=self.btnfunc2) 
          

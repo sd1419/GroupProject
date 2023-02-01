@@ -1,0 +1,85 @@
+from kivymd.app import MDApp
+from kivymd.uix.label import MDLabel
+from kivymd.uix.screen import Screen
+from kivymd.uix.button import MDRectangleFlatButton
+import time
+import random
+
+
+# creating Demo Class(base class)
+class Demo(MDApp):
+
+    def build(self):
+        screen = Screen()
+
+        self.start_time = time.time()
+        self.HR_list = []
+
+        self.update_hr_list()
+
+        # defining label with all the parameters
+        l = MDLabel(text="Panic Attack Detection", halign='center',
+                    theme_text_color="Custom",
+                    text_color=(0.5, 0, 0.5, 1),
+                    font_style='Caption')
+
+        # defining Button1 with all the parameters
+        btn1 = MDRectangleFlatButton(text="Newest HR", pos_hint={
+                                    'center_x': 0.5, 'center_y': 0.8},
+                                    on_release=self.display_newest_hr)
+                                    
+        btn2 = MDRectangleFlatButton(text="Risk", pos_hint={
+                                    'center_x': 0.5, 'center_y': 0.6},
+                                    on_release=self.display_risk) 
+         
+        # defining Button2 with all the parameters
+        btn3 = MDRectangleFlatButton(text="Call Carer", pos_hint={
+                                    'center_x': 0.5, 'center_y': 0.3},
+                                    on_release=self.call_carer)
+        # adding widgets to screen
+        screen.add_widget(btn1)
+        screen.add_widget(btn2)
+        screen.add_widget(btn3)
+        screen.add_widget(l)
+        # returning the screen
+        return screen
+
+    def update_hr_list(self):
+        current_time = time.time()
+        elapsed_time = current_time - self.start_time
+        if elapsed_time >= 50:
+            return
+
+        HR = random.randint(50, 120)
+        self.HR_list.append(HR)
+
+        with open("HR_database.txt", "a") as file:
+            file.write("Time: " + str(current_time) + "  HR: " + str(HR) + "\n")
+
+        color = (0, 1, 0, 1) if all(x <= 100 for x in self.HR_list[-5:]) else (1, 0, 0, 1)
+        btn2.background_color = color
+        time.sleep(5)
+
+    # defining a display_newest_hr() for button1 to
+    # display the newest HR value when clicked on it
+    def display_newest_hr(self, obj):
+        newest_hr = self.HR_list[-1] if self.HR_list else "No HR data available"
+        print(f"Newest HR value: {newest_hr}")
+
+    # defining a display_risk() for button2 to
+    # display the risk level when clicked on it
+    def display_risk(self, obj):
+        if not self.HR_list:
+            print("No HR data available")
+        else:
+            avg_hr = sum(self.HR_list[-5:]) / 5
+            risk = "Low" if avg_hr <= 100 else "High"
+            print(f"Risk level: {risk}")
+
+    # defining a call_carer() for button3 to
+    # call carer when clicked on it
+    def call_carer(self, obj):
+        print("Calling carer...")   
+    
+if __name__ == "__main__":
+    Demo().run()
