@@ -7,7 +7,10 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import Screen
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.button import MDRectangleFlatButton
- 
+import time
+import random
+
+
 # creating Demo Class(base class)
 class Demo(MDApp):
  
@@ -24,6 +27,7 @@ class Demo(MDApp):
         btn1 = MDRectangleFlatButton(text="display current heart rate values", pos_hint={
                                     'center_x': 0.5, 'center_y': 0.8},
                                     on_release=self.btnfunc1)
+                                    
         btn2 = MDRectangleFlatButton(text="Green/Red", pos_hint={
                                     'center_x': 0.5, 'center_y': 0.6},
                                     on_release=self.btnfunc2) 
