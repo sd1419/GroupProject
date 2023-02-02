@@ -13,6 +13,64 @@ ACCESS_TOKEN=str(server.fitbit.client.session.token['access_token'])
 REFRESH_TOKEN=str(server.fitbit.client.session.token['refresh_token'])
 auth2_client=fitbit.Fitbit(CLIENT_ID,CLIENT_SECRET,oauth2=True,access_token=ACCESS_TOKEN,refresh_token=REFRESH_TOKEN)
 
+from fitbit import api 
+import appbit 
+import heartrate
+if appbit.permissions.granted("access_heart_rate"): 
+    hrm = heartrate.HeartRateSensor() 
+    hrm.start()
+
+import { Accelerometer } from "accelerometer";
+import { Barometer } from "barometer";
+import { HeartRateSensor } from "heart-rate";
+import { Gyroscope } from "gyroscope";
+import { OrientationSensor } from "orientation";
+console.log("App Started");
+
+let accel = new Accelerometer();
+let bar = new Barometer();
+let hrm = new HeartRateSensor();
+let gyro = new Gyroscope();
+let orientation = new OrientationSensor({ frequency: 60 });
+
+accel.start();
+bar.start();
+hrm.start();
+gyro.start();
+orientation.start();
+
+function refreshData() {
+  console.log("accel:", accel.timestamp,
+              "bar:", bar.pressure,
+              "hrm:", hrm.heartRate,
+              "gyro:", gyro.timestamp,
+              "orientation", orientation.timestamp
+              );
+}
+
+refreshData();
+setInterval(refreshData, 2000);
+
+
+
+
+
+
+
+
+
+
+print(auth2_client._COLLECTION_RESOURCE('heart', date= datetime.datetime.now()))
+try:
+    import heartrate
+    hrm = heartrate.HeartRateSensor(frequency=1)
+    def on_reading():
+        print(f"Current heart rate: {hrm.heartRate}")
+    hrm.add_event_listener("reading", on_reading)
+    hrm.start()
+except ImportError:
+    print("The heart-rate module is not available.")
+
 # This is the date of data that I want. 
 # You will need to modify for the date you want
 oneDate = pd.datetime(year = 2023, month = 1, day = 25)

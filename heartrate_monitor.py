@@ -1,3 +1,6 @@
+from fitbit import api 
+
+print(client.COLLECTION_RESOURCE('heart', date= datetime.datetime.now()))
 try:
     import heartrate
     hrm = heartrate.HeartRateSensor(frequency=1)
