@@ -1,6 +1,6 @@
 import gather_keys_oauth2 as Oauth2
 import fitbit
-import pandas as pd 
+
 import datetime
 import requests
 import json # Fitbit API endpoint to retrieve real-time heart rate data
