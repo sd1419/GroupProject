@@ -15,6 +15,9 @@ class Demo(MDApp):
         self.start_time = time.time()
         self.HR_list = []
 
+        self.btn2 = MDRectangleFlatButton(text="Risk", pos_hint={
+                                    'center_x': 0.5, 'center_y': 0.6},
+                                    on_release=self.display_risk) 
         self.update_hr_list()
 
         # defining label with all the parameters
@@ -28,17 +31,14 @@ class Demo(MDApp):
                                     'center_x': 0.5, 'center_y': 0.8},
                                     on_release=self.display_newest_hr)
                                     
-        btn2 = MDRectangleFlatButton(text="Risk", pos_hint={
-                                    'center_x': 0.5, 'center_y': 0.6},
-                                    on_release=self.display_risk) 
-         
+        
         # defining Button2 with all the parameters
         btn3 = MDRectangleFlatButton(text="Call Carer", pos_hint={
                                     'center_x': 0.5, 'center_y': 0.3},
                                     on_release=self.call_carer)
         # adding widgets to screen
         screen.add_widget(btn1)
-        screen.add_widget(btn2)
+        screen.add_widget(self.btn2)
         screen.add_widget(btn3)
         screen.add_widget(l)
         # returning the screen
