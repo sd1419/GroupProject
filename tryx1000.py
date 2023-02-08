@@ -1,6 +1,6 @@
 import gather_keys_oauth2 as Oauth2
 import fitbit
-
+import pandas as pd
 import datetime
 import requests
 import json # Fitbit API endpoint to retrieve real-time heart rate data
@@ -21,8 +21,9 @@ heart_rate_endpoint = heart_rate_endpoint.replace("[tracker-id]", "CLIENT_ID") #
 access_token =  ACCESS_TOKEN # Request header with authorization
 header = {
 "Authorization": "Bearer " + access_token
-} # Make GET request to retrieve real-time heart rate data
-response = requests.get(heart_rate_endpoint, headers=header)# Check if request was successful
+} # Make GET request to retrieve real-time heart rate data:
+response = requests.get(heart_rate_endpoint, headers=header)
+# Check if request was successful with code 200
 if response.status_code == 200:
     # Parse JSON response
     heart_rate_data = json.loads(response.text)
@@ -30,3 +31,6 @@ if response.status_code == 200:
     print("Heart rate data: ", heart_rate_data)
 else: # Handle error
     print("Request failed with status code: ", response.status_code)
+
+
+
