@@ -7,8 +7,6 @@ import random
 class MyApp(App):
     def build(self):
         self.HR_list = []
-        self.start_time = 0
-        self.start_time = self.start_time + 1
 
         layout = BoxLayout(orientation='vertical')
         label = Label(text='Panic Attack Detection', font_size='30sp')
@@ -26,14 +24,11 @@ class MyApp(App):
         return layout
 
     def update_hr_list(self):
-        current_time = self.start_time
-        if current_time >= 50:
-            return
-        HR = random.randint(50, 120)
-        self.HR_list.append(HR)
+        self.HR_list.append(random.randint(50, 120))
     
     def display_newest_hr(self, instance):
-        newest_hr = self.HR_list[-1] if self.HR_list else "No HR data available"
+        self.update_hr_list()
+        newest_hr = self.HR_list[-1] 
         print(f"Newest HR value: {newest_hr}")
 
     def display_risk(self, instance):
