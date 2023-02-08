@@ -20,37 +20,39 @@ if appbit.permissions.granted("access_heart_rate"):
     hrm = heartrate.HeartRateSensor() 
     hrm.start()
 
-import { Accelerometer } from "accelerometer";
-import { Barometer } from "barometer";
-import { HeartRateSensor } from "heart-rate";
-import { Gyroscope } from "gyroscope";
-import { OrientationSensor } from "orientation";
-console.log("App Started");
+from accelerometer import Accelerometer
+from barometer import Barometer
+from heart_rate import HeartRateSensor
+from gyroscope import Gyroscope
+from orientation import OrientationSensor
 
-let accel = new Accelerometer();
-let bar = new Barometer();
-let hrm = new HeartRateSensor();
-let gyro = new Gyroscope();
-let orientation = new OrientationSensor({ frequency: 60 });
+print("App Started")
 
-accel.start();
-bar.start();
-hrm.start();
-gyro.start();
-orientation.start();
+accel = Accelerometer()
+bar = Barometer()
+hrm = HeartRateSensor()
+gyro = Gyroscope()
+orientation = OrientationSensor(frequency=60)
 
-function refreshData() {
-  console.log("accel:", accel.timestamp,
-              "bar:", bar.pressure,
-              "hrm:", hrm.heartRate,
-              "gyro:", gyro.timestamp,
-              "orientation", orientation.timestamp
-              );
-}
+accel.start()
+bar.start()
+hrm.start()
+gyro.start()
+orientation.start()
 
-refreshData();
-setInterval(refreshData, 2000);
+def refresh_data():
+    print("accel:", accel.timestamp,
+          "bar:", bar.pressure,
+          "hrm:", hrm.heart_rate,
+          "gyro:", gyro.timestamp,
+          "orientation", orientation.timestamp
+          )
 
+refresh_data()
+import time
+while True:
+    refresh_data()
+    time.sleep(2)
 
 
 
