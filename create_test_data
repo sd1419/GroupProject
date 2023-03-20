@@ -1,0 +1,4 @@
+
+class TrainingData(df):
+    def __init__(self):
+        super().__init__()
